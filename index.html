@@ -190,7 +190,7 @@
          */
         async function callGeminiApi(resumeText, jobDescription) {
             const apiKey = "AIzaSyDT9b2TcRj4C2PmHRH5KqfFwdU9jqp_WZM"; // Leave empty, handled by the environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             // The prompt instructs the model on how to behave and what to output.
             const prompt = `
@@ -348,4 +348,5 @@
     </script>
 </body>
 </html>
+
 

@@ -8,16 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- pdf.js for reading PDF files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <!-- mammoth.js for reading .docx files --><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EevolveX | AI Resume Analyzer</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- pdf.js for reading PDF files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <!-- mammoth.js for reading .docx files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -59,8 +49,7 @@
     <div class="container mx-auto max-w-5xl p-4 sm:p-6 md:p-8">
         <header class="text-center mb-10">
             <!-- EvolveX Logo -->
-            <!-- Change this line -->
-			<img src="eevolveX Logo.jpg" alt="EevolveX Logo" class="mx-auto h-20 w-auto mb-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <img src="eevolveX Logo.jpg" alt="EevolveX Logo" class="mx-auto h-20 w-auto mb-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
             <!-- Fallback Text for Logo -->
             <h1 class="text-4xl font-bold text-purple-800 hidden" style="display:none;">EevolveX</h1>
             
@@ -209,6 +198,7 @@
                 2. A 'summary' (2-3 sentences) explaining the score.
                 3. A 'strengths' array of strings, listing the key qualifications and experiences from the resume that align with the job requirements.
                 4. A 'gaps' array of strings, listing the required skills or experiences mentioned in the job description that seem to be missing from the resume.
+                5. A 'stabilitySummary' (1-2 sentences) analyzing the candidate's job tenure and stability based on the resume.
 
                 Here is the resume:
                 \`\`\`
@@ -232,9 +222,10 @@
                             "matchScore": { "type": "NUMBER" },
                             "summary": { "type": "STRING" },
                             "strengths": { "type": "ARRAY", "items": { "type": "STRING" } },
-                            "gaps": { "type": "ARRAY", "items": { "type": "STRING" } }
+                            "gaps": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "stabilitySummary": { "type": "STRING" }
                         },
-                        required: ["matchScore", "summary", "strengths", "gaps"]
+                        required: ["matchScore", "summary", "strengths", "gaps", "stabilitySummary"]
                     }
                 }
             };
@@ -290,7 +281,7 @@
                 return;
             }
 
-            const { matchScore, summary, strengths, gaps } = data;
+            const { matchScore, summary, strengths, gaps, stabilitySummary } = data;
 
             let strengthsHtml = strengths.map(item => `<li>${item}</li>`).join('');
             let gapsHtml = gaps.map(item => `<li>${item}</li>`).join('');
@@ -301,6 +292,9 @@
                     <div class="text-2xl font-bold text-purple-700">${matchScore}/100</div>
                 </div>
                 <p class="mb-4">${summary}</p>
+
+                <h3 class="text-gray-800 font-semibold">Career Stability</h3>
+                <p class="mb-4 text-sm">${stabilitySummary}</p>
                 
                 <h3 class="text-green-700 font-semibold">Strengths</h3>
                 <ul class="list-disc pl-5 text-green-800">${strengthsHtml}</ul>
